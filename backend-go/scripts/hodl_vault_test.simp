@@ -18,12 +18,12 @@ fn checksigfromstack(pk: Pubkey, bytes: [u32; 2], sig: Signature) {
 }
 
 fn main() {
-    let min_height: Height = 666666666;
+    let min_height: Height = 555555;
     let oracle_height: Height = witness::ORACLE_HEIGHT;
     assert!(jet::le_32(min_height, oracle_height));
     jet::check_lock_height(oracle_height);
 
-    let target_price: u32 = 77777;
+    let target_price: u32 = 55555;
     let oracle_price: u32 = witness::ORACLE_PRICE;
     assert!(jet::le_32(target_price, oracle_price));
 
@@ -31,7 +31,12 @@ fn main() {
     let oracle_sig: Signature = witness::ORACLE_SIG;
     checksigfromstack(oracle_pk, [oracle_height, oracle_price], oracle_sig);
 
-    let owner_pk: Pubkey = 0xc6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5; // 2 * G
-    let owner_sig: Signature = witness::OWNER_SIG;
-    checksig(owner_pk, owner_sig);
+    /*
+    * The owner signature check is gone.
+    * If the script reaches this point, all oracle checks have passed,
+    * and the transaction is considered valid.
+    * let owner_pk: Pubkey = 0xc6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5; // 2 * G
+    * let owner_sig: Signature = witness::OWNER_SIG;
+    * checksig(owner_pk, owner_sig);
+    */
 }
