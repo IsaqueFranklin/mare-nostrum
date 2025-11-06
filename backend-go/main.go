@@ -12,13 +12,14 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/template/html/v2"
 )
 
 // Define a struct that matches the frontend JSON
 type ContractRequest struct {
 	BlockHeight int     `json:"blockHeight"`
 	Price       float64 `json:"price"`
+	Name        string  `json:"name"`
+	Description string  `json:"description"`
 	//OraclePubKey string  `json:"oracle_pubkey"`
 }
 
@@ -92,16 +93,14 @@ fn main() {
 }`
 
 func main() {
-	app := fiber.New(fiber.Config{
-		Views: html.New("./views", ".html"),
-	})
+	app := fiber.New(fiber.Config{})
 
 	app.Static("/", "./public", fiber.Static{
 		Compress: true,
 	})
 
 	app.Use(cors.New(cors.Config{
-		AllowOrigins: "http://localhost:5174",
+		AllowOrigins: "http://localhost:5173",
 		AllowMethods: "GET,POST,OPTIONS",
 	}))
 
@@ -117,6 +116,8 @@ func main() {
 
 		fmt.Println("Received BlockHeight:", body.BlockHeight)
 		fmt.Println("Received Price:", body.Price)
+		fmt.Println("Received Name:", body.Name)
+		fmt.Println("Received Description:", body.Description)
 		//fmt.Println("Oracle Pubkey:", body.OraclePubKey)
 
 		// generating the simplicity code with dynamic values
@@ -160,6 +161,8 @@ func main() {
 			"price":       body.Price,
 			"program_hex": cleanOutput,
 			"address":     address,
+			"name":        body.Name,
+			"description": body.Description,
 		})
 	})
 
