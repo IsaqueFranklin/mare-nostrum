@@ -172,18 +172,15 @@ func main() {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Cannot parse JSON: " + err.Error()})
 		}
 
-		// 1. Construa a URL (como antes)
 		faucetURL := "https://liquidtestnet.com/faucet"
 		fullURL := fmt.Sprintf("%s?address=%s&action=lbtc", faucetURL, body.Address)
 
-		// 2. Execute o GET (como antes)
 		resp, err := http.Get(fullURL)
 		if err != nil {
 			return c.Status(fiber.StatusServiceUnavailable).JSON(fiber.Map{"error": "Faucet service is unavailable: " + err.Error()})
 		}
 		defer resp.Body.Close()
 
-		// 3. Verifique o Status Code (como antes)
 		if resp.StatusCode != http.StatusOK {
 			bodyBytes, _ := io.ReadAll(resp.Body)
 			return c.Status(resp.StatusCode).JSON(fiber.Map{
@@ -193,45 +190,30 @@ func main() {
 			})
 		}
 
-		// 4. Leia o corpo HTML (como antes)
 		bodyBytes, err := io.ReadAll(resp.Body)
 		if err != nil {
 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to read faucet response body: " + err.Error()})
 		}
 
-		// --- INÍCIO DA NOVA LÓGICA (SUBSTITUA O 'json.Unmarshal') ---
-
 		bodyString := string(bodyBytes)
 
-		// 5. Defina a RegEx para encontrar o TxID
-		// A txid é uma string de 64 caracteres hexadecimais (a-f, 0-9)
-		// A RegEx procura por: "with transaction " seguido por (64 chars hex) e ".</p>"
 		re := regexp.MustCompile(`with transaction ([a-f0-9]{64})\.</p>`)
 
-		// 6. Tente encontrar o padrão na resposta HTML
 		matches := re.FindStringSubmatch(bodyString)
 
-		// 7. Verifique se encontramos
-		// matches[0] é o texto completo (ex: "with transaction ...</p>")
-		// matches[1] é o primeiro grupo de captura (apenas o txId)
 		if len(matches) < 2 {
-			// Não encontrou o TxID!
-			// Provavelmente a faucet retornou um erro 200 OK, mas com uma
-			// mensagem de erro no HTML (ex: "Address already funded")
+
 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 				"error":           "Failed to find transaction ID in faucet HTML response.",
-				"faucet_response": bodyString, // Envie o HTML para depuração
+				"faucet_response": bodyString,
 			})
 		}
 
-		// 8. Sucesso! Extraímos o TxID
 		txid := matches[1]
 
 		return c.JSON(fiber.Map{
 			"txid": txid,
 		})
-
-		// --- FIM DA NOVA LÓGICA ---
 	})
 
 	//This is just a test, a descontinued api route for now
