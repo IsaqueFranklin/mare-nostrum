@@ -42,7 +42,6 @@ Before you begin, ensure you have the following tools installed and configured o
 * **NIP-07 Browser Extension:** This is required for logging into the web app.
     * [nos2x](https://github.com/nobs-lol/nos2x) (Recommended)
     * [Alby](https://getalby.com/) 
-    * [Fina](https://fina.cash/)
 
 ### 2. Core Dependencies
 * **Rust & Cargo:** Required to build the Simplicity tools.
