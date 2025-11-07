@@ -34,7 +34,13 @@
 
 			// creating the NDK instance
 			ndk = new NDK({
-				explicitRelayUrls: ["wss://relay.damus.io", "wss://nos.lol"], // add any relays you want
+				explicitRelayUrls: [
+                    "wss://relay.damus.io", 
+                    "wss://nos.lol",
+                    'wss://relay.primal.net',
+                    'wss://relay.nostr.band',
+                    'wss://nostr.wine'
+                ], // add any relays you want
 			});
 
 			// NIP-07 signer, the extension
@@ -210,7 +216,7 @@
     }
 </script>
 
-<div class="max-w-6xl mx-auto h-screen my-auto px-8 py-8">
+<div class="max-w-6xl mx-auto min-h-screen my-auto px-8 py-8">
     <div class="w-full text-center mx-auto mt-12 mb-8">
         <div class="inline-flex gap-2 items-center">
             <img src="/logotransparent.png" alt="MareNostrum logo" class="h-32" />
@@ -257,6 +263,14 @@
                     <code>{publishedEventJson}</code>
                 </pre>
             </div>
+
+            <a href="/propagated" class="mt-8">
+                <button
+                    class="bg-green-500 text-white py-2 px-3 w-full rounded-md hover:bg-green-600"
+                >
+                    See propagated contracts
+                </button>
+            </a>
         </div>
     {/if}
 
@@ -276,7 +290,7 @@
             </div>
             {#if contractType && !addressReturned}
                 <div class="mx-auto p-6 space-y-4 border rounded-lg bg-white text-gray-800">
-                    <h1 class="text-xl font-bold mb-2">Submit Block Data</h1>
+                    <h1 class="text-xl font-bold mb-2">Prize Vault Contract info & targets</h1>
 
                     <div class="flex flex-col space-y-2">
                         <label for="blockHeight" class="font-medium">Contract name</label>
@@ -324,7 +338,7 @@
                     </div>
 
                     <button
-                        class="bg-blue-600 text-white p-2 rounded-lg w-full hover:bg-blue-700"
+                        class="bg-green-500 text-white py-2 px-3 w-full rounded-md hover:bg-green-600"
                         on:click={submitForm}
                     >
                         Submit
@@ -352,7 +366,7 @@
                     </div>
                     <button
                         on:click={publishContract}
-                        class="bg-blue-600 text-white p-2 rounded-lg w-full hover:bg-blue-700"
+                        class="bg-green-500 text-white py-2 px-3 w-full rounded-md hover:bg-green-600"
                     >Propagate contract to Nostr</button>
                 </div>
             {:else}
