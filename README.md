@@ -66,9 +66,6 @@ Before you begin, ensure you have the following tools installed and configured o
     nvm use 22
     ```
 
-* **Elements (for Testnet):** You will need `elements-cli` and a running Liquid testnet node to fund the contract addresses.
-    * Follow the [Elements installation guide](https://elementsproject.org/getting-started).
-
 ## 🚀 Setup and Installation
 
 Follow these steps to build the dependencies and run the project.
