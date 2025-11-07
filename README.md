@@ -103,7 +103,7 @@ which hal-simplicity
 
 ### 2. Clone the MareNostrum repository
 ```bash
-git clone [https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git)
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
 cd YOUR_REPO_NAME
 ```
 
@@ -120,4 +120,4 @@ go get .
 go run .
 ```
 
-It should now be runnig everything and you can access MareNostrum at http://localhot:5173
+It should now be runnig everything and you can access MareNostrum at http://localhost:5173
