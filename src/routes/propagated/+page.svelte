@@ -6,7 +6,7 @@ import { nip19 } from 'nostr-tools';
     const relayUrls = [
         'wss://relay.damus.io',
         'wss://relay.primal.net',
-        'wss://relay.nostr.band',
+        //'wss://relay.nostr.band', //This relay sometimes gives a problem.
         'wss://nostr.wine'
     ];
 

@@ -18,12 +18,12 @@ fn checksigfromstack(pk: Pubkey, bytes: [u32; 2], sig: Signature) {
 }
 
 fn main() {
-    let min_height: Height = 555555;
+    let min_height: Height = 3000000;
     let oracle_height: Height = witness::ORACLE_HEIGHT;
     assert!(jet::le_32(min_height, oracle_height));
     jet::check_lock_height(oracle_height);
 
-    let target_price: u32 = 5555555;
+    let target_price: u32 = 150000;
     let oracle_price: u32 = witness::ORACLE_PRICE;
     assert!(jet::le_32(target_price, oracle_price));
 
